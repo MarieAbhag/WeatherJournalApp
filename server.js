@@ -45,8 +45,8 @@ app.get('/all', function (req, res) {
 })
 
 const data = [];
-app.post('/flavor', addFlavor);
+app.post('/addnew', addFlavor);
 
 function addFlavor (req, res) {
-  console.log(req.body.date);
+  res.send("POST recieved")
 };
