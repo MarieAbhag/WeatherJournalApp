@@ -36,17 +36,12 @@ const server = app.listen(port, () => {
 });
 
 
-
-// Create JS object
-const appData = {
-    date:'sss'
-}
 // Respond with JS object when a GET request is made to the homepage
 app.get('/all', function (req, res) {
-  res.send(appData)
+  res.send(allData)
 })
 
-const data = [];
+
 app.post('/addnew', addEntry);
 
 function addEntry (req, res) {
@@ -57,15 +52,14 @@ function addEntry (req, res) {
 function HandelingData(reqBody){
   userData.date = reqBody.date;
   userData.time = reqBody.time;
-  userData.zip = reqBody.zipcode
-  userData.country = reqBody.country
+  userData.zip = reqBody.zip;
+  userData.country = reqBody.country;
   userData.feeling = reqBody.feeling;
   userData.temp =  GenerateRandomTempNumber();
   allData.push(userData);
-  console.log(allData.length);
 }
 
 
 function GenerateRandomTempNumber(){
-  return Math.random() * 40;
+  return (Math.random() * 40).toFixed(2);
 }

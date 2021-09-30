@@ -8,16 +8,10 @@
 var userSentObj = {
     date:'',
     time:'',
-    zipcode: '',
+    zip: '',
     country: '',
     feeling: ''
-}
-
-// data from server object
-var dataRecievedObj = {
-    temp: 100,
-    country:''
-}
+ }
 
 // Submit button event registration 
 document.getElementById('generate').addEventListener('click', SubmitData);
@@ -66,7 +60,7 @@ function SubmitData(){
         default:
             break;
     }
-    userSentObj.zipcode = zipCode;
+    userSentObj.zip = zipCode;
     userSentObj.feeling = userFeelings;
     userSentObj.country = userCountry;
     userSentObj.date = GetCurrentDate();
@@ -74,29 +68,33 @@ function SubmitData(){
     postData('/addnew', userSentObj);
 }
 
+
 function UpdateUI(){
     getData('/all');
 }
 
 // add the data from the server to the entery table UI component 
-function AddDataRowToTable(){
+function AddDataRowToTable(entryObj){
     var table = document.getElementById('entriesTable');
     var newRow = document.createElement('tr');
     var col1 = document.createElement('th');
-    col1.innerHTML = GetCurrentDate();
+    col1.innerHTML = entryObj.date;
     var col2 = document.createElement('th');
-    col2.innerHTML = GetCurrentTime();
+    col2.innerHTML = entryObj.time;
     var col3 = document.createElement('th');
-    col3.innerHTML = dataRecievedObj.country;
+    col3.innerHTML = entryObj.country;
     var col4 = document.createElement('th');
-    col4.innerHTML = userSentObj.feeling;
+    col4.innerHTML = entryObj.zip;
     var col5 = document.createElement('th');
-    col5.innerHTML = dataRecievedObj.temp;
+    col5.innerHTML = entryObj.feeling;
+    var col6 = document.createElement('th');
+    col6.innerHTML = entryObj.temp;
     newRow.appendChild(col1);
     newRow.appendChild(col2);
     newRow.appendChild(col3);
     newRow.appendChild(col4);
     newRow.appendChild(col5);
+    newRow.appendChild(col6);
     table.appendChild(newRow);
 }
 
@@ -106,7 +104,6 @@ function AddDataRowToTable(){
 
 // sending data to the server (POST request)
 const postData = async(url = '', data = {}) => {
-    console.log(data)
     const response = await fetch(url, {
         method:'POST',
         credentials:'same-origin',
@@ -119,7 +116,7 @@ const postData = async(url = '', data = {}) => {
         const status = await response.statusText;
         if (status === "OK") {
             window.alert("Your data has been added.");
-            getData('/all');
+            UpdateUI();
         } else {
             window.alert("Something went wrong. Please try again later..");
         }
@@ -128,14 +125,12 @@ const postData = async(url = '', data = {}) => {
     }
 };
 
-
 // getting data from the server (GET request)
-
 const getData = async(url = '') => {
     const response = await fetch(url);
     try {
-        const status = await response;
-        console.log(status);
+        const status = await response.json();
+        AddDataRowToTable(status[0]);
     } catch (error) {
         console.log(error);
     }
