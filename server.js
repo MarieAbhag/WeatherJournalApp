@@ -1,5 +1,8 @@
+
 // Setup empty JS object to act as endpoint for all routes
-projectData = {};
+userData = require('./Objects/DataEntry');
+
+allData = [];
 
 // Express to run server and routes
 const express = require('express');
@@ -29,7 +32,6 @@ app.get('/', function (req, res) {
 // Set up and Spin up the server
 const port = 8080;
 const server = app.listen(port, () => {
-    console.log(server.address())
     console.log(`server is listening on port: ${port}`); // Callback to debug
 });
 
@@ -45,8 +47,25 @@ app.get('/all', function (req, res) {
 })
 
 const data = [];
-app.post('/addnew', addFlavor);
+app.post('/addnew', addEntry);
 
-function addFlavor (req, res) {
-  res.send("POST recieved")
+function addEntry (req, res) {
+  res.send("DONE");
+  HandelingData(req.body);
 };
+
+function HandelingData(reqBody){
+  userData.date = reqBody.date;
+  userData.time = reqBody.time;
+  userData.zip = reqBody.zipcode
+  userData.country = reqBody.country
+  userData.feeling = reqBody.feeling;
+  userData.temp =  GenerateRandomTempNumber();
+  allData.push(userData);
+  console.log(allData.length);
+}
+
+
+function GenerateRandomTempNumber(){
+  return Math.random() * 40;
+}

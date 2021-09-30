@@ -7,8 +7,7 @@ body{
     display: grid;
     grid-auto-rows: minmax(150px, auto);
     /* grid-template-columns:  */
-    height:100vh;
-    background: #f23557;
+    background: #af7b84;
     color: #f0d43a;
     justify-content: center;
     grid-gap: 1em;
@@ -16,16 +15,35 @@ body{
     font-family: 'Oswald', sans-serif;
 }
 
-.holder{
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin: 2px;
+    width: 1000px;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #645d5d;
+  }
 
+.holder{
+    height: auto;
 }
 
 .entry{
     background: rgba(59, 74, 107, .4);
+    padding: 8px;
 }
 
 #entryHolder{
-
+    padding: 8px;
 }
 
 #date{
@@ -41,7 +59,7 @@ body{
 }
 
 .headline {
-
+    text-align: center;
 }
 .title{
 
@@ -49,19 +67,19 @@ body{
 
 /*  Basic Styling To Override Default For Basic HTML Elements */
 label{
-    display:block;
     font-size: 27px;
+
 }
 
 input{
-    display:block;
-    height: 60px;
-    width: 320px;
+    height: 30px;
+    width: 450px;
     background:#22b2da;
     color: #f0d43a;
     font-size: 20px;
     font-family: 'Oswald', sans-serif;
     border: none;
+    padding: 10px;
 }
 
 button{
@@ -73,13 +91,16 @@ button{
     font-family: 'Oswald', sans-serif;
     border: none;
     box-shadow: 2px 4px 5px #444;
+    cursor: pointer;
 }
 h1{
     font-size: 36px;
 }
 
 textarea{
+    width: 450px;
     background:#22b2da;
+    padding: 10px;
     color: #f0d43a;
     font-size: 20px;
     font-family: 'Oswald', sans-serif;
@@ -108,4 +129,4 @@ button:focus {
     color: #f0d43a; 
     font-family: 'Oswald', sans-serif;
 
-} 
+}
