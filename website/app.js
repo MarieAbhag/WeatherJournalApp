@@ -75,7 +75,7 @@ function SubmitData(){
 }
 
 function UpdateUI(){
-
+    getData('/all');
 }
 
 // add the data from the server to the entery table UI component 
@@ -104,7 +104,7 @@ function AddDataRowToTable(){
 /*======    Server-wise functions      ================*/ 
 /*=====================================================*/ 
 
-// sending data to the server (POST requist)
+// sending data to the server (POST request)
 const postData = async(url = '', data = {}) => {
     console.log(data)
     const response = await fetch(url, {
@@ -119,6 +119,7 @@ const postData = async(url = '', data = {}) => {
         const status = await response.statusText;
         if (status === "OK") {
             window.alert("Your data has been added.");
+            getData('/all');
         } else {
             window.alert("Something went wrong. Please try again later..");
         }
@@ -128,4 +129,14 @@ const postData = async(url = '', data = {}) => {
 };
 
 
-// getting data from the server (GET requist)
+// getting data from the server (GET request)
+
+const getData = async(url = '') => {
+    const response = await fetch(url);
+    try {
+        const status = await response;
+        console.log(status);
+    } catch (error) {
+        console.log(error);
+    }
+};
