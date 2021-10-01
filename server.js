@@ -55,11 +55,7 @@ function HandelingData(reqBody){
   userData.zip = reqBody.zip;
   userData.country = reqBody.country;
   userData.feeling = reqBody.feeling;
-  userData.temp =  GenerateRandomTempNumber();
+  userData.temp =  reqBody.temp;
   allData.push(userData);
 }
 
-
-function GenerateRandomTempNumber(){
-  return (Math.random() * 40).toFixed(2);
-}

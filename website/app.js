@@ -3,6 +3,9 @@
 /*======    Global variables, objects and events   ====*/ 
 /*=====================================================*/ 
 
+const baseURL = 'http://api.openweathermap.org/data/2.5/weather?q='
+const apiKey = '&appid=2cee41a74613123afb2c3027ee5d7434'
+
 
 // data to server object
 var userSentObj = {
@@ -10,7 +13,8 @@ var userSentObj = {
     time:'',
     zip: '',
     country: '',
-    feeling: ''
+    feeling: '',
+    temp:''
  }
 
 // Submit button event registration 
@@ -60,12 +64,19 @@ function SubmitData(){
         default:
             break;
     }
+
     userSentObj.zip = zipCode;
     userSentObj.feeling = userFeelings;
     userSentObj.country = userCountry;
     userSentObj.date = GetCurrentDate();
     userSentObj.time = GetCurrentTime();
-    postData('/addnew', userSentObj);
+    getWeatherMap(userCountry) 
+    .then(function() {
+        postData('/addnew', userSentObj);
+    })
+    .then(function(){
+        UpdateUI();
+    })
 }
 
 
@@ -116,7 +127,6 @@ const postData = async(url = '', data = {}) => {
         const status = await response.statusText;
         if (status === "OK") {
             window.alert("Your data has been added.");
-            UpdateUI();
         } else {
             window.alert("Something went wrong. Please try again later..");
         }
@@ -135,3 +145,18 @@ const getData = async(url = '') => {
         console.log(error);
     }
 };
+
+//getting weather data from OpenWeatherMap
+const getWeatherMap = async (country) => {
+    // res equals to the result of fetch function
+    const res = await fetch(baseURL + country + apiKey);
+    try {
+      // userData equals to the result of fetch function
+      const userData = await res.json();
+      userSentObj.temp =  userData.main.temp;
+      return userData.main.temp;
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
+  

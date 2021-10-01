@@ -71,8 +71,8 @@ label{
 
 }
 
-input{
-    height: 30px;
+input, select{
+    height: 50px;
     width: 450px;
     background:#22b2da;
     color: #f0d43a;
