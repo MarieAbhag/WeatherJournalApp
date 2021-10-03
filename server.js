@@ -2,7 +2,7 @@
 // Setup empty JS object to act as endpoint for all routes
 userData = require('./Objects/DataEntry');
 
-allData = [];
+projectData={}
 
 // Express to run server and routes
 const express = require('express');
@@ -38,7 +38,7 @@ const server = app.listen(port, () => {
 
 // Respond with JS object when a GET request is made to the homepage
 app.get('/all', function (req, res) {
-  res.send(allData)
+  res.send(projectData)
 })
 
 
@@ -56,6 +56,6 @@ function HandelingData(reqBody){
   userData.country = reqBody.country;
   userData.feeling = reqBody.feeling;
   userData.temp =  reqBody.temp;
-  allData.push(userData);
+  projectData = userData;
 }
 

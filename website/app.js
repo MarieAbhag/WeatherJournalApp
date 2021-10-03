@@ -139,8 +139,8 @@ const postData = async(url = '', data = {}) => {
 const getData = async(url = '') => {
     const response = await fetch(url);
     try {
-        const status = await response.json();
-        AddDataRowToTable(status[0]);
+        const dataFromServer = await response.json();
+        AddDataRowToTable(dataFromServer);
     } catch (error) {
         console.log(error);
     }
