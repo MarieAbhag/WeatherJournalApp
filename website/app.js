@@ -4,8 +4,7 @@
 /*=====================================================*/ 
 
 const baseURL = 'http://api.openweathermap.org/data/2.5/weather?q='
-const apiKey = '&appid=2cee41a74613123afb2c3027ee5d7434'
-
+const apiKey = '&appid=2cee41a74613123afb2c3027ee5d7434&units='
 
 // data to server object
 var userSentObj = {
@@ -34,7 +33,8 @@ function GetCurrentTime(){
 // return a string of the current date (dd.mm.yyyy) 
 function GetCurrentDate(){
     var d = new Date();
-    return  d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+    //Because getmonth() start from 0. We have "d1.getMonth() + 1" to achieve what we want.
+    return d.getDate() +'.'+  (d.getMonth()+1)+'.'+ d.getFullYear();
 }
 
 // check the user enteries 
@@ -149,7 +149,8 @@ const getData = async(url = '') => {
 //getting weather data from OpenWeatherMap
 const getWeatherMap = async (country) => {
     // res equals to the result of fetch function
-    const res = await fetch(baseURL + country + apiKey);
+
+    const res = await fetch(baseURL + country + apiKey + document.getElementById('units').value);
     try {
       // userData equals to the result of fetch function
       const userData = await res.json();
